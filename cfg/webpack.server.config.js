@@ -1,7 +1,7 @@
 const path = require('path'); 
 const nodeExternals = require('webpack-node-externals');
 
-const NODE_ENV = process.NODE_ENV;
+const NODE_ENV = process.env.NODE_ENV;
 
 module.exports = {
     target: 'node', 
@@ -12,13 +12,16 @@ module.exports = {
         filename: 'server.js',
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
+        extensions: ['.js', '.jsx', '.json']
     },
     externals: [nodeExternals()],
     module: {
         rules: [{
-            test: /\.[tj]sx?$/, 
+            test: /\.[jt]sx?$/, 
             use: ['ts-loader']
         }]
     }, 
+    optimization: {
+        minimize: false
+    }
 }

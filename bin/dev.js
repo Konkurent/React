@@ -5,18 +5,18 @@ const path =  require('path');
 
 const compiler = webpack(webpackConfig);
 
-compiler.run((err) => {
+const watching = compiler.watch({}, (err) => {
     if (err) {
         console.log('Compilation failed: ', err);
     };
 
-    compiler.watch({}, (err) => {
-        if (err) {
-            console.log('Compilation failed: ', err);
-        };
-
-        console.log('Compilation success');
-    });
+    console.log('Compilation success');
+})
+  
+compiler.run((err) => {
+    if (err) {
+        console.log('Compilation failed: ', err);
+    };
 
     nodemon({
         script: path.resolve(__dirname, '../dist/server/server.js'),
@@ -25,5 +25,5 @@ compiler.run((err) => {
             path.resolve(__dirname, '../dist/server'), 
             path.resolve(__dirname, '../dist/client'), 
         ]
-    })
+    }); 
 })
